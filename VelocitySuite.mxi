@@ -1,0 +1,205 @@
+<macromedia-extension name="Velocity Suite" version="1.2.2" type="suite" requires-restart="true">
+	<author name="Jason Gill" />
+	<products>
+		<product name="Dreamweaver" version="6" primary="true" />
+	</products>
+	<description>
+		<![CDATA[
+		http://velocity.gilluminate.com<br><br>
+		Gives full Velocity (VTL) funcitonality to Dreamweaver, including the following:<br><br>
+		1. Inserts a "Velocity" object with tools to automatically insert VTL code into your document.<br>
+		2. Adds Velocity's .vm extension in DreamWeaver and associates .vm files with Dreamweaver.<br>
+		3. Adds "Velocity" as a new document type in Dreamweaver. Also adds a Default.vm page which will open as the new document when Velocity is selected.<br>
+		4. Let's .vm files act as thought they were .html files, including color coding, tag hints, etc.<br>
+		5. Adds Third Party Tag support.<br>
+		6. Adds Translators for #include and #parse, making the included file visible in the design view.<br><br>
+		Note: including multiple files within a single #include statement [i.e. #include( "disclaimer.txt", "opinion.txt" )] is not currently supported by Third Party Tags or Translators.<br><br>
+		I suggest adding this extension to your alerts on Macromedia Exchange since I am updating and revising it quite often.<br><br>[Verson 1.2.2 Contains a minor bug fix in Color Coding.]<br>[Verson 1.2.1 Contains updated support URL (velocity.gilluminate.com) and email (petethechop@gmail.com) information.]<br>[Verson 1.2.0 added translators for #include and #parse. In other words, the content of the file included will apear in the design window.]<br>[Verson 1.1.4 fixed a conflict with how dreamweaver handles other includes such as asp and ssi.]<br>[Verson 1.1.3 enhanced color coding support.]<br>[Verson 1.1.2 enhanced macro support including how the macro button on the Velocity Toolbar works as well as how Third Party Tags handle macros.]<br>[Version 1.1.0 added Third Party Tag support which replaces VTL in design view with "sheild" images. For this to work properly, the final closing paren ')' must be preceded by a space, no other closing paren can be preceded by a space. For example #set ( $foo = (4-5) ) will work, but #set ( $foo = (4-5 ) ) will break, #set ($foo = (4-5)) will also break. I have created a .dwr search query that will find velocity code that does not meet this standard and replace it with the correct spacing. see http://velocity.gilluminate.com to obtain it.]<br>[Version 1.0.4 fixed lack of vtl tag hints and vtl code coloring missing in previous versions, to invoke code coloring you must have "#* velocity document *#" at the beginning of your .vm or .html document without quotes. This version also added the foreach "loop" button on the Velocity Toolbar missing from previous versions.]<br><br>In the spirit of Open Source projects such as Velocity, if you would like to contribute to this extension or have suggestions on how to improve it, please email me petethechop@gmail.com<br>Special thanks to Mike Kienenberger, Will Glass-Husain, Tim White, and Scott Chun for their contributions thus far.
+		]]>
+	</description>
+	<ui-access>
+		<![CDATA[To open a new velocity document, select File > New... from the menu system, the new documents dialog will open.<br>
+		Select the 'Basic Page' Category for the Velocity Document<br><br>
+		Access objects via 'Velocity' tab inside Insert bar.<br><br>
+		See http://velocity.gilluminate.com for more information on this extension.<br><br>
+		See http://jakarta.apache.org/velocity for more information on Velocity.]]>
+	</ui-access>
+	<license-agreement>
+		<![CDATA[I take no responsibility for any problems that may occur while, possessing, installing, or using this extension. It was created solely as a shared tool for convenience and not as a professional product with warrantees or guarantees. By accepting this agreement you agree to absolve me from any such warrantees or guarantees and agree not to sue for any reason regarding the use of this tool. Thank you. -Jason Gill]]>
+</license-agreement>
+	<files>
+		<file source="if.gif" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="else.gif" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="elseif.gif" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="stop.gif" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="set.gif" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="parse.gif" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="include.gif" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="foreach.gif" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="macro.gif" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="comment.gif" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="if.html" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="else.html" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="elseif.html" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="stop.html" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="set.html" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="parse.html" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="include.html" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="foreach.html" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="macro.html" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="comment.html" destination="$dreamweaver/configuration/objects/Velocity" />
+		<file source="Default.vm" destination="$dreamweaver/configuration/DocumentTypes/NewDocuments" />
+		<file source="VM.xml" destination="$dreamweaver/configuration/CodeColoring" />
+		<file source="VMCodeHints.xml" destination="$dreamweaver/configuration/CodeHints" />
+		<file source="VTL.xml" destination="$dreamweaver/configuration/ThirdPartyTags" />
+		<file source="VTL_if.gif" destination="$dreamweaver/configuration/ThirdPartyTags/VTL" />
+		<file source="VTL_else.gif" destination="$dreamweaver/configuration/ThirdPartyTags/VTL" />
+		<file source="VTL_elseif.gif" destination="$dreamweaver/configuration/ThirdPartyTags/VTL" />
+		<file source="VTL_stop.gif" destination="$dreamweaver/configuration/ThirdPartyTags/VTL" />
+		<file source="VTL_set.gif" destination="$dreamweaver/configuration/ThirdPartyTags/VTL" />
+		<file source="VTL_parse.gif" destination="$dreamweaver/configuration/ThirdPartyTags/VTL" />
+		<file source="VTL_include.gif" destination="$dreamweaver/configuration/ThirdPartyTags/VTL" />
+		<file source="VTL_foreach.gif" destination="$dreamweaver/configuration/ThirdPartyTags/VTL" />
+		<file source="VTL_macro.gif" destination="$dreamweaver/configuration/ThirdPartyTags/VTL" />
+		<file source="VTL_comment.gif" destination="$dreamweaver/configuration/ThirdPartyTags/VTL" />
+		<file source="VTL_end.gif" destination="$dreamweaver/configuration/ThirdPartyTags/VTL" />
+	</files>
+	<configuration-changes>
+		<insertbar-changes>
+			<insertbar-insert>
+				<category folder="Velocity" id="DW_Insertbar_Velocity" name="Velocity">
+					<button file="Velocity\set.html" id="Velocity_set" image="Velocity\set.gif" name="Set" />
+					<separator id="Velocity_seperator1"/>
+					<button file="Velocity\include.html" id="Velocity_include" image="Velocity\include.gif" name="Include" />
+					<button file="Velocity\parse.html" id="Velocity_parse" image="Velocity\parse.gif" name="Parse" />
+					<separator id="Velocity_seperator2"/>
+					<button file="Velocity\if.html" id="Velocity_if" image="Velocity\if.gif" name="If" />
+					<button file="Velocity\else.html" id="Velocity_else" image="Velocity\else.gif" name="Else" />
+					<button file="Velocity\elseif.html" id="Velocity_elseif" image="Velocity\elseif.gif" name="ElseIf" />
+					<separator id="Velocity_seperator3"/>
+					<button file="Velocity\foreach.html" id="Velocity_foreach" image="Velocity\foreach.gif" name="Loop" />
+					<button file="Velocity\stop.html" id="Velocity_stop" image="Velocity\stop.gif" name="Stop" />
+					<button file="Velocity\macro.html" id="Velocity_macro" image="Velocity\macro.gif" name="Macro" />
+					<button file="Velocity\comment.html" id="Velocity_comment" image="Velocity\comment.gif" name="Comment" />
+				</category>
+			</insertbar-insert>
+		</insertbar-changes>
+		<extensions-changes>
+			<extension-insert extension="VM" description="Velocity files"/>
+		</extensions-changes>
+		<documenttype-changes>
+			<documenttype-insert>
+				<documenttype id="VM" internaltype="Dynamic" dynamicid="HTML" winfileextension="vm" macfileextension="vm" file="Default.vm">
+					<TITLE>
+					Velocity
+					</TITLE>
+					<description>
+					<![CDATA[Velocity Java-based template]]>
+					</description>
+				</documenttype>
+			</documenttype-insert>
+		</documenttype-changes>
+		<taglibrary-changes>
+			<taglibrary-insert>
+				<taglibrary name="VM tags" doctypes="VM" tagchooser="html/TagChooser.xml" id="DWTagLibrary_vm">
+					<tagref name="a" file="html/a.vtm"/>
+					<tagref name="abbr" file="html/abbr.vtm"/>
+					<tagref name="acronym" file="html/acronym.vtm"/>
+					<tagref name="address" file="html/address.vtm"/>
+					<tagref name="applet" file="html/applet.vtm"/>
+					<tagref name="area" file="html/area.vtm"/>
+					<tagref name="b" file="html/b.vtm"/>
+					<tagref name="base" file="html/base.vtm"/>
+					<tagref name="basefont" file="html/basefont.vtm"/>
+					<tagref name="bdo" file="html/bdo.vtm"/>
+					<tagref name="bgsound" file="html/bgsound.vtm"/>
+					<tagref name="big" file="html/big.vtm"/>
+					<tagref name="blockquote" file="html/blockquote.vtm"/>
+					<tagref name="body" file="html/body.vtm"/>
+					<tagref name="br" file="html/br.vtm"/>
+					<tagref name="button" file="html/button.vtm"/>
+					<tagref name="caption" file="html/caption.vtm"/>
+					<tagref name="center" file="html/center.vtm"/>
+					<tagref name="cite" file="html/cite.vtm"/>
+					<tagref name="code" file="html/code.vtm"/>
+					<tagref name="col" file="html/col.vtm"/>
+					<tagref name="colgroup" file="html/colgroup.vtm"/>
+					<tagref name="dd" file="html/dd.vtm"/>
+					<tagref name="del" file="html/del.vtm"/>
+					<tagref name="dfn" file="html/dfn.vtm"/>
+					<tagref name="directive" file="html/directive.vtm" prefix="&lt;!"/>
+					<tagref name="div" file="html/div.vtm"/>
+					<tagref name="dl" file="html/dl.vtm"/>
+					<tagref name="dt" file="html/dt.vtm"/>
+					<tagref name="em" file="html/em.vtm"/>
+					<tagref name="embed" file="html/embed.vtm"/>
+					<tagref name="fieldset" file="html/fieldset.vtm"/>
+					<tagref name="font" file="html/font.vtm"/>
+					<tagref name="form" file="html/form.vtm"/>
+					<tagref name="frame" file="html/frame.vtm"/>
+					<tagref name="frameset" file="html/frameset.vtm"/>
+					<tagref name="h1" file="html/h1.vtm"/>
+					<tagref name="h2" file="html/h2.vtm"/>
+					<tagref name="h3" file="html/h3.vtm"/>
+					<tagref name="h4" file="html/h4.vtm"/>
+					<tagref name="h5" file="html/h5.vtm"/>
+					<tagref name="h6" file="html/h6.vtm"/>
+					<tagref name="head" file="html/head.vtm"/>
+					<tagref name="hr" file="html/hr.vtm"/>
+					<tagref name="html" file="html/html.vtm"/>
+					<tagref name="i" file="html/i.vtm"/>
+					<tagref name="iframe" file="html/iframe.vtm"/>
+					<tagref name="ilayer" file="html/ilayer.vtm"/>
+					<tagref name="img" file="html/img.vtm"/>
+					<tagref name="input" file="html/input.vtm"/>
+					<tagref name="ins" file="html/ins.vtm"/>
+					<tagref name="kbd" file="html/kbd.vtm"/>
+					<tagref name="label" file="html/label.vtm"/>
+					<tagref name="layer" file="html/layer.vtm"/>
+					<tagref name="legend" file="html/legend.vtm"/>
+					<tagref name="li" file="html/li.vtm"/>
+					<tagref name="link" file="html/link.vtm"/>
+					<tagref name="map" file="html/map.vtm"/>
+					<tagref name="marquee" file="html/marquee.vtm"/>
+					<tagref name="meta" file="html/meta.vtm"/>
+					<tagref name="multicol" file="html/multicol.vtm"/>
+					<tagref name="noframes" file="html/noframes.vtm"/>
+					<tagref name="noscript" file="html/noscript.vtm"/>
+					<tagref name="object" file="html/object.vtm"/>
+					<tagref name="ol" file="html/ol.vtm"/>
+					<tagref name="option" file="html/option.vtm"/>
+					<tagref name="optgroup" file="html/optgroup.vtm"/>
+					<tagref name="p" file="html/p.vtm"/>
+					<tagref name="param" file="html/param.vtm"/>
+					<tagref name="pre" file="html/pre.vtm"/>
+					<tagref name="q" file="html/q.vtm"/>
+					<tagref name="samp" file="html/samp.vtm"/>
+					<tagref name="script" file="html/script.vtm"/>
+					<tagref name="select" file="html/select.vtm"/>
+					<tagref name="small" file="html/small.vtm"/>
+					<tagref name="sound" file="html/sound.vtm"/>
+					<tagref name="spacer" file="html/spacer.vtm"/>
+					<tagref name="span" file="html/span.vtm"/>
+					<tagref name="strong" file="html/strong.vtm"/>
+					<tagref name="style" file="html/style.vtm"/>
+					<tagref name="sub" file="html/sub.vtm"/>
+					<tagref name="sup" file="html/sup.vtm"/>
+					<tagref name="table" file="html/table.vtm"/>
+					<tagref name="tbody" file="html/tbody.vtm"/>
+					<tagref name="td" file="html/td.vtm"/>
+					<tagref name="textarea" file="html/textarea.vtm"/>
+					<tagref name="tfoot" file="html/tfoot.vtm"/>
+					<tagref name="th" file="html/th.vtm"/>
+					<tagref name="thead" file="html/thead.vtm"/>
+					<tagref name="title" file="html/title.vtm"/>
+					<tagref name="tr" file="html/tr.vtm"/>
+					<tagref name="tt" file="html/tt.vtm"/>
+					<tagref name="ul" file="html/ul.vtm"/>
+					<tagref name="var" file="html/var.vtm"/>
+					<tagref name="xml" file="html/directive.processing.vtm"  prefix="&lt;?xml"/>
+					<tagref name="button-live" file="Flash_Components/button-live.vtm"/>
+				</taglibrary>
+			</taglibrary-insert>
+		</taglibrary-changes>
+	</configuration-changes>
+</macromedia-extension>

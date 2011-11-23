@@ -1,0 +1,12 @@
+<tagspec tag_name="vtl_set" start_string="#set" end_string=" )" icon="VTL/VTL_set.gif" icon_width="40" icon_height="15"></tagspec>
+<tagspec tag_name="vtl_if" start_string="#if" end_string=" )" icon="VTL/VTL_if.gif" icon_width="40" icon_height="15"></tagspec>
+<tagspec tag_name="vtl_elseif" start_string="#elseif" end_string=" )" icon="VTL/VTL_elseif.gif" icon_width="40" icon_height="15"></tagspec>
+<tagspec tag_name="vtl_foreach" start_string="#foreach" end_string=" )" icon="VTL/VTL_foreach.gif" icon_width="40" icon_height="15"></tagspec>
+<tagspec tag_name="vtl_else" start_string="#el" end_string="se" icon="VTL/VTL_else.gif" icon_width="40" icon_height="15"></tagspec>
+<tagspec tag_name="vtl_stop" start_string="#st" end_string="op" icon="VTL/VTL_stop.gif" icon_width="40" icon_height="15"></tagspec>
+<tagspec tag_name="vtl_macro" start_string="#macro" end_string=" )" icon="VTL/VTL_macro.gif" icon_width="40" icon_height="15"></tagspec>
+<tagspec tag_name="vtl_parse" start_string="#parse" end_string=" )" icon="VTL/VTL_parse.gif" icon_width="40" icon_height="15"></tagspec>
+<tagspec tag_name="vtl_include" start_string="#include" end_string=" )" icon="VTL/VTL_include.gif" icon_width="40" icon_height="15"></tagspec>
+<tagspec tag_name="vtl_macro" start_string="#" end_string=" )" icon="VTL/VTL_macro.gif" icon_width="40" icon_height="15"></tagspec>
+<tagspec tag_name="vtl_end" start_string="#en" end_string="d" icon="VTL/VTL_end.gif" icon_width="40" icon_height="15"></tagspec>
+<tagspec tag_name="vtl_comment" start_string="#*" end_string="*#" icon="VTL/VTL_comment.gif" icon_width="40" icon_height="15"></tagspec>

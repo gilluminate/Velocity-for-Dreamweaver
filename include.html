@@ -1,0 +1,24 @@
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//dialog">
+<!-- MENU-LOCATION=NONE -->
+<html>
+<head>
+<title>Velocity</title>
+<script language="javascript">
+function isDOMRequired() {
+	// Return false, indicating that this object is available in code view.
+	return false;
+}
+function objectTag() {
+    var includeFileName = dw.doURLEncoding(dw.browseForFileURL("select", "", false));
+    var theString =  "#include ( \"" + includeFileName + "\" )";
+    return theString;
+}
+
+function displayHelp(){
+  dw.browseDocument('http://jakarta.apache.org/velocity/user-guide.html');
+}
+</script>
+</head>
+<body> 
+</body>
+</html>

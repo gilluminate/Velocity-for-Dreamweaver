@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<menugroup MMString:name="vm_codehints_1" enabled="true" id="CodeHints_Velocity_Attributes">
+  <description>
+  <MMString:loadString id="vm_codehints_2" />
+  </description>
+	<menu pattern="#">
+		<menuitem label="#set" value="set" texticon="V" />
+		<menuitem label="#include" value="include" texticon="V" />
+		<menuitem label="#parse" value="parse" texticon="V" />
+		<menuitem label="#if" value="if" texticon="V" />
+		<menuitem label="#else" value="else" texticon="V" />
+		<menuitem label="#elseif" value="elseif" texticon="V" />
+		<menuitem label="#end" value="end" texticon="V" />
+		<menuitem label="#stop" value="stop" texticon="V" />
+		<menuitem label="#foreach" value="foreach" texticon="V" />
+		<menuitem label="#macro" value="macro" texticon="V" />
+	</menu>
+</menugroup>

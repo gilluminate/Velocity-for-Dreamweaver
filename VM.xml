@@ -1,0 +1,50 @@
+<codeColoring>
+	<scheme name="Velocity" id="VM" priority="10" doctypes="VM,HTML">
+		<ignoreCase>Yes</ignoreCase>
+		<ignoreTags>No</ignoreTags>
+		<blockStart doctypes="VM,HTML" scheme="innerTag" canNest="Yes"><![CDATA[#*\s*velocity\s+document\s**#]]></blockStart>
+		<blockEnd><![CDATA[petethechop]]></blockEnd>
+		<commentStart name="Comment" id="CodeColor_VelocityComment"><![CDATA[#*]]></commentStart>
+		<commentEnd><![CDATA[*#]]></commentEnd>
+		<endOfLineComment><![CDATA[##]]></endOfLineComment>
+		<defaultText name="Text" id="CodeColor_HTMLText" />
+		<defaultTag name="Other Tags" id="CodeColor_HTMLTag" />
+		<defaultAttribute />
+		<commentStart name="Comment" id="CodeColor_HTMLComment"><![CDATA[<!--]]></commentStart>
+		<commentEnd><![CDATA[-->]]></commentEnd>
+		<commentStart><![CDATA[<%--]]></commentStart>
+		<commentEnd><![CDATA[--%>]]></commentEnd>
+		<stringStart name="Attribute Value" id="CodeColor_HTMLString"><![CDATA["]]></stringStart>
+		<stringEnd><![CDATA["]]></stringEnd>
+		<stringStart><![CDATA[']]></stringStart>
+		<stringEnd><![CDATA[']]></stringEnd>
+		<numbers name="Number" id="CodeColor_HTMLNumber" />
+		<entity name="Special Characters" id="CodeColor_HTMLEntity" />
+		<keywords name="Reserved Keywords" id="CodeColor_VelocityReserved">
+			<keyword>if</keyword>
+			<keyword>set</keyword>
+			<keyword>include</keyword>
+			<keyword>parse</keyword>
+			<keyword>else</keyword>
+			<keyword>elseif</keyword>
+			<keyword>end</keyword>
+			<keyword>stop</keyword>
+			<keyword>foreach</keyword>
+			<keyword>macro</keyword>
+		</keywords>
+		<sampleText doctypes="VM,HTML">
+<![CDATA[#if	( test )
+	text
+#else
+	TEXT
+#end
+
+#*comment
+block*#
+
+##inline comment
+
+#set ( $name = "value" )]]>
+		</sampleText>
+	</scheme>
+</codeColoring>

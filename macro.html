@@ -1,0 +1,41 @@
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//dialog">
+<!-- MENU-LOCATION=NONE -->
+<html>
+<head>
+<title>Velocity</title>
+<script language="javascript">
+function isDOMRequired() {
+	// Return false, indicating that this object is available in code view.
+	return false;
+}
+function objectTag() {
+    var definition = document.theForm.definition.value;
+	var arguments = document.theForm.arguments.value;
+    var repeatedSegment = document.theForm.repeatedSegment.value;
+	var theString = "#macro ( "+definition+" "+arguments+" )\n"+repeatedSegment+"\n#end";
+    return theString;
+}
+
+function displayHelp(){
+  dw.browseDocument('http://jakarta.apache.org/velocity/user-guide.html');
+}
+</script>
+</head><body> 
+<form name="theForm"> 
+  <table border="0" cellspacing="10" cellpadding="0">
+    <tr>
+      <td align="right" valign="top">Name:</td>
+      <td><input type="text" name="definition" size="40"></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Arguments:</td>
+      <td><input type="text" name="arguments" size="40"></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Repeated Segment:</td>
+      <td><textarea name="repeatedSegment" cols="36" rows="5"></textarea></td>
+    </tr>
+  </table> 
+</form> 
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//dialog">
+<!-- MENU-LOCATION=NONE -->
+<html>
+<head>
+<title>Velocity</title>
+<script language="javascript">
+function isDOMRequired() {
+	// Return false, indicating that this object is available in code view.
+	return false;
+}
+function objectTag() {
+    var foreachStatement = document.theForm.foreachStatement.value;
+	var foreachStatement = foreachStatement.replace(" )", ")");
+    var inStatement = document.theForm.inStatement.value;
+	var inStatement = inStatement.replace(" )", ")");
+    var statementStatement = document.theForm.statementStatement.value;
+    var theString =  "#foreach ( " + foreachStatement + " in " + inStatement + " )\n  " + statementStatement +  "\n#end";
+    return theString;
+}
+function displayHelp(){
+  dw.browseDocument('http://jakarta.apache.org/velocity/user-guide.html');
+}
+</script>
+</head>
+<body> 
+<form name="theForm"> 
+  <table border="0" cellspacing="10" cellpadding="0">
+    <tr>
+      <td align="right" valign="top">Foreach:</td>
+      <td><input type="text" name="foreachStatement" size="17"> in <input type="text" name="inStatement" size="17"></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Statement:</td>
+      <td><textarea name="statementStatement" cols="36" rows="5"></textarea></td>
+    </tr>
+  </table> 
+</form> 
+</body>
+</html>

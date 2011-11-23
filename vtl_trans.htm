@@ -1,0 +1,279 @@
+<html>
+<head>
+<title>Velocity Translator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=">
+<script language="JavaScript" src="../Shared/MM/Scripts/Class/FileClass.js"></script>
+<script language="JavaScript">
+
+function translateMarkup( docNameStr, siteRootStr, inStr )
+{
+	if (inStr.length == 0)
+		return "";
+		
+	var outStr				= "";
+	var	patternFound		= false;
+	var showContents		= dw.getTranslateServerSideIncludes();
+	var includeIcon				= "";
+		
+	// Get parameters
+	var dom = dw.getDocumentDOM();
+	var includeArray = new Array();
+	var obj;
+
+	// Do a straight search to see if we even have anything that looks
+	// like an include statement before doing the whole heavy regexp search.
+	if ((inStr.search(/#include/i) != (-1)) || (inStr.search(/#parse/i) != (-1)))
+	{
+		// Handle velocity includes in files
+		obj = new Object();
+		obj.pattern = "/#include\\s*()[\(]\\s*[\"|']([^\"^']*)[\"|']\\s*[\)]/im";
+		obj.which = "include";
+		obj.fileRef = 2;
+		obj.type = "ssi_comment";
+		obj.enabled = true;
+		includeArray.push(obj);
+		// Handle velocity parses in files
+		obj = new Object();
+		obj.pattern = "/#parse\\s*()[\(]\\s*[\"|']([^\"^']*)[\"|']\\s*[\)]/im";
+		obj.which = "parse";
+		obj.fileRef = 2;
+		obj.type = "ssi_comment";
+		obj.enabled = true;
+		includeArray.push(obj);
+		// Handle velocity includes in files
+		obj = new Object();
+		obj.pattern = "/#include\\s*()[\(]\\s*[\$]([^\"^']*)\\s*[\)]/im";
+		obj.which = "include";
+		obj.fileRef = 1;
+		obj.type = "ssi_comment";
+		obj.enabled = true;
+		includeArray.push(obj);
+		// Handle velocity parses in files
+		obj = new Object();
+		obj.pattern = "/#parse\\s*()[\(]\\s*[\$]([^\"^']*)\\s*[\)]/im";
+		obj.which = "parse";
+		obj.fileRef = 1;
+		obj.type = "ssi_comment";
+		obj.enabled = true;
+		includeArray.push(obj);
+	}
+	else
+		return "";
+
+	// Add patterns to array to match sections of
+	// page that we do not want to translate
+	if (inStr.indexOf("MM:BeginLock") != -1)
+	{
+		obj = new Object();
+		obj.pattern = "/<MM:BeginLock.*?<MM:EndLock>/im"; // locked regions
+		obj.fileRef = -1;
+		obj.type = "";
+		obj.enabled = true;
+		includeArray.push(obj);
+	}
+
+	var result;
+	var remainingInStr = inStr;
+
+	for (i=0; i < includeArray.length; i++)
+		includeArray[i].re = eval(includeArray[i].pattern);
+
+	// Translate contents of page
+	while ((result = ExecRegExpArray(includeArray, remainingInStr)) != null)
+	{
+		// Add text up to match
+		outStr += remainingInStr.substr(0, result.index);
+		if (result.fileReference >= 0)
+		{
+			if (showContents)
+			{
+				var fileContents = "";
+				var depPath = "";
+				var include;
+
+				// Try to open file. Substring index stored in result.fileReference
+				include = new File(result[result.fileReference], docNameStr);
+				if (include.exists())
+				{
+					fileContents = include.getContents();
+					// Note: &nbsp; was originally used so empty content would render better
+					// in tabbed outlines (which are no longer used). This is now used to
+					// distinguish between 'empty file' and 'file not found' cases.
+					if (fileContents.length <= 0)
+						fileContents = "<img src=\"" + dw.getConfigurationPath() + "/ThirdPartyTags/VTL/VTL_"+result.whichOne+".gif\">";
+					depPath = include.getAbsolutePath();
+				}
+
+				if (!HasTemplateMarkup(fileContents, result[result.fileReference]))
+				{
+					// Do translation
+					outStr += '<MM:BeginLock translatorClass="VTL" type="' +
+						result.type + '" orig="' + encode(result[0]) +
+						'" fileRef="' + result[result.fileReference] + '"';
+					if (depPath.length > 0)
+						 outStr += ' depFiles="' + include.getAbsolutePath() + '"';
+					outStr += '>' + fileContents + '<MM:EndLock>';
+				}
+				else //don't do the translation, just return the original string
+					outStr += result[0];
+			}
+			else
+			{
+				// Build reusable icon string
+				if (includeIcon.length == 0)
+				{
+					includeIcon = "<img src=\"" + dw.getConfigurationPath() + "/ThirdPartyTags/VTL/VTL_include.gif\">";
+				}
+
+				outStr += '<MM:BeginLock translatorClass="VTL" type="' +
+								result.type + '" orig="' + encode(result[0]) +
+								'" fileRef="' + result[result.fileReference] +
+							'">' + includeIcon + '<MM:EndLock>';
+			}
+
+		}
+		else
+		{
+			// nothing to translate
+			outStr += result[0];
+		}
+		// Re-search text following match
+		remainingInStr = remainingInStr.substr(result.index + result[0].length);
+
+		// Remember that at least one translation was performed
+		patternFound = true;
+	}
+
+	outStr += remainingInStr;
+
+	// If no translations were performed, return empty string
+	return patternFound ? outStr : "";
+} // translateMarkup
+
+
+// Temp fix to prevent Template markup from being displayed as include file content.
+// The problem is that include file content should be read-only, but the Template
+// engine does not realize it is inside a Lock tag, so crash can occur
+
+function HasTemplateMarkup(contents, filename)
+{
+	// Template filenames have the form "[name].dwt" or "[name].dwt.[ext]"
+	if (filename.search(/\.dwt($|\.)/i) != (-1))
+		return true;
+
+	if (contents.search(/InstanceBegin/i) != (-1))
+		return true;
+
+	return false;
+}
+
+
+// ExecRegExpArray()
+//
+// Run .exec() against the string for all elements of RegExp array and
+// return the result that has the lowest index (i.e. sequentially next)
+
+function ExecRegExpArray(incla, str)
+{
+	var nextResult = null;
+
+	for (i=0; i < incla.length; i++)
+	{
+		if (incla[i].enabled == false)
+			continue;
+
+		var result = incla[i].re.exec(str);
+		if (result != null)
+		{
+			if ((nextResult == null ||
+				 result.index < nextResult.index))
+			{
+				nextResult = result;
+				nextResult.fileReference = incla[i].fileRef;
+				nextResult.type = incla[i].type;
+				nextResult.whichOne = incla[i].which;
+			}
+		}
+		else
+		{
+			// Pattern not found, so remove it from list
+			incla[i].enabled = false;
+		}
+	}
+
+	return nextResult;
+}
+
+// getSiteRootRelativeFileContents
+//
+// Test each directory of site remote url, starting with the shortest to
+// try to find file with site-root relative path that may be outside root
+
+function getSiteRootRelativeFileContents(url, relPath)
+{
+	var contents = "";
+	var urlIndex = -1;
+
+	// Remove trailing url '/'
+	if (url[url.length-1] == '/')
+		url = url.substr(0, url.length-1);
+
+	// Extract just domain name from url
+	// Skip first 2 slash (/) chars (i.e "http://") and
+	// move urlIndex to 3rd slash
+	var i=0;
+	while (i<3 && urlIndex < url.length)
+		if (url[++urlIndex] == '/')
+			i++;
+
+	// Get url up to, but not including, current slash and append
+	// site-root relative path (which *does* include a slash)
+	var testUrl = url.substr(0, urlIndex) + relPath;
+	var httpReply = MMHttp.getText(dw.doURLEncoding(testUrl));
+	if (httpReply.statusCode == 200)
+	{
+		contents = httpReply.data;
+		// Note: &nbsp; was originally used so empty content would render better
+		// in tabbed outlines (which are no longer used). This is now used to
+		// distinguish between 'empty file' and 'file not found' cases.
+		if (contents.length == 0)
+			contents = "&nbsp;";
+	}
+
+	return contents;
+}
+
+function encode(stmt)
+{
+	// URL encode quote character
+	var index = stmt.indexOf("\"");
+	while (index != -1)
+	{
+		stmt = stmt.substring(0, index) + "%22" + stmt.substring(index+1);
+		index = stmt.indexOf("\"");
+	}
+
+	return stmt;
+}
+
+function getTranslatorInfo()
+{
+	returnArray = new Array(7)
+
+	returnArray[0] = "VTL";			// The translatorClass
+	returnArray[1] = "Server Model VTL";	// The title
+	returnArray[2] = "0"; 					// The number of extensions. 0 indicates to run against all extensions
+	returnArray[3] = "2"; 					// The number of expressions
+	returnArray[4] = "#include";				// Run on files with this text
+	returnArray[5] = "#parse";				// Run on files with this text
+	returnArray[6] = "byExpression";			// Run against all files
+	returnArray[7] = "1";					// Priority: Give a high priority (low number) to run this translator before most others
+
+	return returnArray
+}
+</script>
+
+</head>
+<body>
+</body>
+</html>

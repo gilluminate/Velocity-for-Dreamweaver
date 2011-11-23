@@ -1,0 +1,30 @@
+<!-- MENU-LOCATION=NONE -->
+<html>
+<head>
+<title>Velocity</title>
+<script language="javascript">
+function isDOMRequired() { 
+	// Return false, indicating that this object is available in code view.
+	return false;
+}
+
+function objectTag() {
+  var retVal = "";
+	var dom = dw.getDocumentDOM();
+  
+  if (dom.getView() == 'design' || (dom.getView() == 'split' && dw.getFocus(true) != 'textView')){
+	   var cmdFile = dw.getConfigurationPath() + "/Commands/Comment_DesignView.htm";
+	   var cmdDOM = dw.getDocumentDOM(cmdFile);
+   
+	   dw.runCommand("Comment_DesignView.htm");
+	   retVal = (cmdDOM.parentWindow.getCommentStr());
+  }else{
+    // Manually wrap comment markers around selection.
+	  dom.source.wrapSelection('#* ',' *#');
+  }
+  
+  return retVal;
+}
+</script>
+</head>
+</html>

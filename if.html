@@ -1,0 +1,37 @@
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//dialog">
+<!-- MENU-LOCATION=NONE -->
+<html>
+<head>
+<title>Velocity</title>
+<script language="javascript">
+function isDOMRequired() {
+	// Return false, indicating that this object is available in code view.
+	return false;
+}
+function objectTag() {
+    var ifStatement = document.theForm.ifStatement.value;
+	var ifStatement = ifStatement.replace(" )", ")");
+    var thenStatement = document.theForm.thenStatement.value;
+    var theString =  "#if ( " + ifStatement + " )\n  " + thenStatement +  "\n#end";
+    return theString;
+}
+function displayHelp(){
+  dw.browseDocument('http://jakarta.apache.org/velocity/user-guide.html');
+}
+</script>
+</head>
+<body> 
+<form name="theForm"> 
+  <table border="0" cellspacing="10" cellpadding="0">
+    <tr>
+      <td align="right" valign="top">If:</td>
+      <td><input type="text" name="ifStatement" size="40"></td>
+    </tr>
+    <tr>
+      <td align="right" valign="top">Then:</td>
+      <td><textarea name="thenStatement" cols="36" rows="5"></textarea></td>
+    </tr>
+  </table> 
+</form> 
+</body>
+</html>

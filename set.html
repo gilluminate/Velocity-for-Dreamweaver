@@ -1,0 +1,40 @@
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//dialog">
+<!-- MENU-LOCATION=NONE -->
+<html>
+<head>
+<title>Velocity</title>
+<script language="javascript">
+function isDOMRequired() {
+	// Return false, indicating that this object is available in code view.
+	return false;
+}
+function objectTag() {
+    var name = document.theForm.name.value;
+	var name = name.replace(" )", ")");
+    var thevalue = document.theForm.thevalue.value;
+	var thevalue = thevalue.replace(" )", ")");
+    var theString =  "#set ( " + name + "=" + thevalue + "  )";
+    return theString;
+}
+function displayHelp(){
+  dw.browseDocument('http://jakarta.apache.org/velocity/user-guide.html');
+}
+</script>
+</head>
+<body> 
+<form name="theForm"> 
+  <table border="0" cellspacing="10" cellpadding="0">
+    <tr valign="top">
+      <td nowrap>Name:</td>
+      <td>
+      <input type="text" name="name" size="40" value="$"></td>
+    </tr>
+    <tr valign="top">
+      <td>Value:</td>
+      <td>
+      <textarea name="thevalue" cols="36" rows="5">" "</textarea></td>
+    </tr>
+  </table> 
+</form> 
+</body>
+</html>
